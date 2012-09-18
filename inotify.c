@@ -39,6 +39,12 @@
 #include <lualib.h>
 #include <lauxlib.h>
 
+/*
+| Lua 5.1 compatibility fallbacks
+*/
+#if LUA_VERSION_NUM < 502
+#   define luaL_newlib(L,l) (lua_newtable(L), luaL_register(L,NULL,l))
+#endif
 
 /*
 | Event types.

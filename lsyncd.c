@@ -56,6 +56,15 @@ extern const char defaults_out[];
 extern size_t defaults_size;
 
 /*
+| Lua 5.1 compatibility fallbacks
+*/
+#if LUA_VERSION_NUM < 502
+/* lua_rawlen: Not entirely correct, but should work anyway */
+#	define lua_rawlen lua_objlen
+#	define luaL_newlib(L,l) (lua_newtable(L), luaL_register(L,NULL,l))
+#endif
+
+/*
 | Makes sure there is one file system monitor.
 */
 #ifndef LSYNCD_WITH_INOTIFY
