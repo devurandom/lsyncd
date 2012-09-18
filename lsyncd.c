@@ -1086,13 +1086,14 @@ l_exec( lua_State *L )
 		{
 			int tlen;
 			int it;
-			lua_checkstack( L, lua_gettop( L ) + lua_objlen( L, i ) + 1 );
+
+			lua_checkstack( L, lua_gettop( L ) + lua_rawlen( L, i ) + 1 );
 
 			// moves table to top of stack
 			lua_pushvalue( L, i );
 			lua_remove( L, i );
 			argc--;
-			tlen = lua_objlen( L, -1 );
+			tlen = lua_rawlen( L, -1 );
 
 			for( it = 1; it <= tlen; it++ )
 			{
@@ -1850,7 +1851,7 @@ l_jiffies_le(lua_State *L)
 void
 register_lsyncd( lua_State *L )
 {
-	luaL_register( L, LSYNCD_LIBNAME, lsyncdlib );
+	luaL_newlib( L, lsyncdlib );
 	lua_setglobal( L, LSYNCD_LIBNAME );
 
 	// creates the metatable for the jiffies ( timestamps ) userdata

@@ -499,7 +499,7 @@ inotify_ready(
 extern void
 register_inotify( lua_State *L )
 {
-	luaL_register( L, LSYNCD_INOTIFYLIBNAME, linotfylib );
+	luaL_newlib( L, linotfylib );
 }
 
 
